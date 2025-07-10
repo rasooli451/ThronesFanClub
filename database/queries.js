@@ -18,6 +18,21 @@ const getAllLikesByUser = asyncHandler(async function(user_id){
 
 
 
+const createNewPost = asyncHandler(async function(message, date, owner_id){
+    await Pool.query("INSERT INTO messages (message,date,owner_id) VALUES ($1,$2,$3)",[message,date,owner_id]);
+})
 
 
-module.exports = {getAllPosts, getAllLikesByUser};
+const likePost = asyncHandler(async function(owner_id, message_id){
+    await Pool.query("INSERT INTO likes (owner_id,message_id) VALUES ($1,$2)", [owner_id, message_id]);
+})
+
+const dislikePost = asyncHandler(async function(owner_id, message_id){
+    await Pool.query("DELETE FROM likes WHERE owner_id=($1) AND message_id=($2)", [owner_id, message_id]);
+})
+
+
+
+
+
+module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost};
