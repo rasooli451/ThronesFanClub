@@ -14,9 +14,92 @@
     <main>
     <%- include("Partials/header") %>
     <div class="main">
-            <h1>Welcome back, <%= currentUser.username %>!</h1>
-            <a href="/logout">LOG OUT</a>
+        <div class="posts">
+            <% if (locals.posts.length > 0){ %>
+            <% locals.posts.forEach((post)=>{ %>
+                <div class="post">
+                    <div class="poster">
+                        <div class="image"></div>
+                        <% if (locals.currentUser.ismember) { %>
+                        <p class="posterName"><%= post.username %></p>
+                        <% } else { %>
+                            <p class="posterName">Anonymous</p>
+                        <% } %>
+                    </div>
+                    <div class="message">
+                        <p><%= post.message %></p>
+                    </div>
+                    <div class="postInfo">
+                        <div class="likes">
+                            <p>&#x1F44D;<span class="likeCount"><%= post.like_count %></span></p>
+                        </div>
+                        <% if (post.comment_count > 0){ %>
+                            <div class="comments">
+                                <p><%= post.comment_count %> comments</p>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="buttons">
+                        <% const liked = locals.likes.some(like => like.message_id == post.message_id);%>
+
+                        <% if (liked) { %>
+                            <div class="like">
+                                <img src="../public/like.png" alt="likeButton">
+                                <button class="likebtn liked" data-msgid="<%= post.message_id %>">Like</button>
+                            </div>
+                        <% } else { %>
+                            <div class="like">
+                                <img src="../public/like.png" alt="likeButton">
+                                <button class="likebtn" data-msgid="<%= post.message_id %>">Like</button>
+                            </div>
+                        <% } %>
+                        <button class="<% locals.currentUser.ismember ? 'commentBtn' : 'commentBtn disabled' %>" >
+                            <img src="../public/chat.png" alt="commentButton">
+                            <p>Comment</p>
+                        </button>
+                    </div>
+                </div>
+            <%})%>
+            <% } else { %>
+                <h1>No Posts to show</h1>
+            <% } %>
+        </div>
     </div>
     </main>
+    <script>
+        document.querySelectorAll('.likebtn').forEach((btn,index) => {
+        btn.addEventListener('click', async () => {
+        console.log("clicked");
+        const messageId = btn.getAttribute('data-msgid');
+        const likeCount = document.querySelectorAll(".likeCount")[index];
+        const numberOfLikes = Number(likeCount.textContent);
+        try {
+            const res = await fetch('/api/like', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ messageId, isLike : !btn.classList.contains("liked") ? true : false })
+            });
+
+            const data = await res.json();
+            if (data.success) {
+            // Update UI, e.g., increment like count, change button style, etc.
+            if (btn.classList.contains("liked")){
+                likeCount.textContent = numberOfLikes - 1;
+                btn.classList.remove("liked");
+            }
+            else{
+                likeCount.textContent = numberOfLikes + 1;
+                btn.classList.add("liked");
+            }
+            }
+        } catch (err) {
+            console.error('Error:', err);
+
+        }
+        });
+    });
+    </script>
 </body>
 </html>
