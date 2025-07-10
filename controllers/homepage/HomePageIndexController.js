@@ -11,4 +11,7 @@ const HomePageIndexController = async (req, res)=>{
 }
 
 
+module.exports = HomePageIndexController;
+
+
 
