@@ -17,6 +17,7 @@ const { error } = require("node:console");
 const asyncHandler = require("express-async-handler");
 const pgSession = require("connect-pg-simple")(session);
 const HomePageRouter = require("./routes/HomePageRouter");
+const {likePost,dislikePost} = require("./database/queries");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 require("dotenv").config();
@@ -41,8 +42,7 @@ const validateLogin = [
 
 const validateSignUp = [
     body("username").trim().escape().isLength({min: 1, max : 255}).withMessage("username should be between 1 and 255 characters"),
-    body("email").trim().escape().isEmail().withMessage("email is in the wrong format"),
-    body("password").escape()
+    body("email").trim().escape().isEmail().withMessage("email is in the wrong format")
 ];
 
 
@@ -134,6 +134,18 @@ app.post("/signup", [validateSignUp, asyncHandler(async (req, res)=>{
 
 app.use("/homepage", HomePageRouter);
 
+
+app.post("/api/like", async (req, res)=>{
+  const {messageId, isLike} = req.body;
+  const userId = req.user.user_id;
+  if (isLike){
+    await likePost(userId, messageId);
+  }
+  else{
+    await dislikePost(userId,messageId);
+  }
+  res.json({ success: true });
+})
 
 passport.serializeUser((user, done) => {
   done(null, user.user_id);
