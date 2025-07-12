@@ -98,3 +98,7 @@ input{
     padding: 10px;
     color: #fff;
 }
+
+.hidden{
+    display: none;
+}
