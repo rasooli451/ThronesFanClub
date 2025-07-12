@@ -14,7 +14,8 @@ const SQL = `
      password VARCHAR (255),
      email VARCHAR (100),
      isAdmin INTEGER,
-     isMember INTEGER
+     isMember INTEGER,
+     favorite VARCHAR (100)
      );
 
      INSERT INTO users (username,password,email,isAdmin,isMember) VALUES ('Farhad Rasoli', '$2b$10$nuTe3MJ69x8CpOu2aFQK/uML/KF7/pw8y7RciyGTZ9nvfcdrbFHVi', 'rasoolyfarhad7@gmail.com', 1, 1);
@@ -23,7 +24,7 @@ const SQL = `
      CREATE TABLE IF NOT EXISTS messages(
      message_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
      message VARCHAR (3000),
-     date DATE,
+     date TIMESTAMPTZ,
      owner_id INTEGER);
 
      ALTER TABLE messages ADD FOREIGN KEY(owner_id)
