@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Edit User</title>
+</head>
+<body>
+    <main>
+        <form action="/profile/editUser" method="post">
+            <div class="formSection">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="enter username..." name="username" required value="<%= locals.currentUser.username %>">
+            </div>
+            <div class="formSection">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="enter email Address..." name="email" required value="<%= locals.currentUser.email %>">
+            </div>
+            <div class="formSection">
+                <label for="character">Favorite Character:</label>
+                <select name="character" id="character" required data-favorite="<%= locals.currentUser.favorite %>">
+                    <option value="">Choose a character</option>
+                    <option value="jonsnow">Jon Snow</option>
+                    <option value="daenerystargaryen">Daenerys Targaryen</option>
+                    <option value="nedstark">Ned Stark</option>
+                    <option value="aryastark">Arya Stark</option>
+                    <option value="sansastark">Sansa Stark</option>
+                    <option value="branstark">Bran Stark</option>
+                    <option value="tyrionlannister">Tyrion Lannister</option>
+                    <option value="jamielannister">Jamie Lannister</option>
+                    <option value="cerceilannister">Cercei Lannister</option>
+                    <option value="sandorclegane">Sandor Clegane</option>
+                </select>
+            </div>
+            <div class="formSection">
+                <button type="submit">Edit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+    </main>
+    <script>
+        const selectElement = document.querySelector("select");
+        const userFavorite = selectElement.getAttribute("data-favorite");
+        selectElement.value = userFavorite;
+    </script>
+</body>
+</html>
