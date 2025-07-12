@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Comments</title>
+</head>
+<body>
+    <main>
+        <%- include("Partials/header") %>
+        <div class="comments">
+            <% if (locals.comments.length > 0) { %>
+                <% locals.comments.forEach((comment)=> { %>
+                <div class="comment">
+                    <div class="commenter">
+                        <img src="/characters/<%= comment.favorite %>.jpg" alt="profile">
+                        <p><%= comment.username %></p>
+                    </div>
+                    <div class="content">
+                        <%= comment.comment %>
+                    </div>
+                    <% if (locals.currentUser.isadmin || locals.currentUser.username == comment.username) { %>
+                        <div class="options">
+                        <a href="/profile/comment/edit/<%= comment.comment_id %>">Edit</a>
+                        <a href="/profile/comment/delete/<%= comment.comment_id %>,<%= comment.message_id %>">Delete</a>
+                        </div>
+                    <% } %>
+                </div>
+                <% }) %>    
+            <% } else { %>
+                <h2>No Comments yet, be the first to comment.</h2>
+            <% } %>
+        </div>
+        <form action="/profile/comment/<%= locals.message_id %>" method="post">
+            <textarea name="comment" id="comment" placeholder="write a comment..." required></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </main>
+</body>
+</html>
