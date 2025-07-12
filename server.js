@@ -17,6 +17,7 @@ const { error } = require("node:console");
 const asyncHandler = require("express-async-handler");
 const pgSession = require("connect-pg-simple")(session);
 const HomePageRouter = require("./routes/HomePageRouter");
+const ProfileRouter = require("./routes/ProfileRouter");
 const {likePost,dislikePost} = require("./database/queries");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -41,8 +42,9 @@ const validateLogin = [
 
 
 const validateSignUp = [
-    body("username").trim().escape().isLength({min: 1, max : 255}).withMessage("username should be between 1 and 255 characters"),
-    body("email").trim().escape().isEmail().withMessage("email is in the wrong format")
+    body("username").trim().isLength({min: 1, max : 255}).withMessage("username should be between 1 and 255 characters"),
+    body("email").trim().isEmail().withMessage("email is in the wrong format"),
+    body("character").notEmpty().withMessage("Please choose a favorite character")
 ];
 
 
@@ -99,14 +101,18 @@ app.post("/login",[validateLogin, (req, res, next)=>{
         return res.status(500).render("errors", {errors : errors.array()});
     }
     next();
-}], passport.authenticate("local", {successRedirect : "/", failureRedirect : "/login"}))
+}], passport.authenticate("local", {successRedirect : "/homepage", failureRedirect : "/login"}))
 
 app.get("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    req.session.destroy(err => {
+    if (err) return next(err);
+    res.clearCookie('connect.sid');
+    res.redirect('/login');
+  });
   });
 });
 
@@ -120,19 +126,32 @@ app.post("/signup", [validateSignUp, asyncHandler(async (req, res)=>{
     if (!errors.isEmpty()){
         return res.status(500).render("errors", {errors : errors.array()});
     }
-    const {username,email,password,confirmPassword} = req.body;
-    if (password != confirmPassword){
+    const {username,email,password,confirmPassword,character} = req.body;
+    const {rows} = await Pool.query("SELECT * FROM users WHERE username=($1)", [username]);
+    if (!rows.length > 0){
+      if (password != confirmPassword){
         return res.status(500).render("errors", {errors : [{msg : "The Password in confirm password doesn't match your password, please try again!"}]});
+      }
+      else{
+          const hasedPassword = await bcrypt.hash(password, 10);
+          await Pool.query("INSERT INTO users (username,password,email,isAdmin,isMember,favorite) VALUES($1,$2,$3,$4,$5,$6)", [username, hasedPassword,email,0,0,character]);
+          res.redirect("/login");
+      }
     }
     else{
-        const hasedPassword = await bcrypt.hash(password, 10);
-        await Pool.query("INSERT INTO users (username,password,email,isAdmin,isMember) VALUES($1,$2,$3,$4,$5)", [username, hasedPassword,email,0,0]);
-        res.redirect("/login");
+      res.status(500).render("errors", {errors : [{msg : "An account by this username already exists."}]})
     }
 })])
 
 
 app.use("/homepage", HomePageRouter);
+
+app.use("/profile", ProfileRouter);
+
+app.get("/notamember", (req,res)=>{
+  res.render("notamember");
+})
+
 
 
 app.post("/api/like", async (req, res)=>{
@@ -154,8 +173,10 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (user_id, done) => {
   try {
     const { rows } = await Pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]);
+    if (rows.length === 0){
+      return done(null, false);
+    }
     const user = rows[0];
-
     done(null, user);
   } catch(err) {
     done(err);
