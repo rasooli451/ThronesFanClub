@@ -1,0 +1,77 @@
+
+
+
+
+
+
+
+<% if (locals.posts.length > 0){ %>
+            <% locals.posts.forEach((post)=>{ %>
+                <div class="post">
+                    <div class="postInfo">
+                        <div class="poster">
+                            <div class="image">
+                                <img src="/characters/<%= post.favorite %>.jpg" alt="profile">
+                            </div>
+                            <% if (locals.currentUser.ismember || locals.currentUser.username == post.username) { %>
+                                <% if (locals.currentUser.username == post.username) {%>
+                                    <p class="posterName"><a href="/profile"><%= post.username %></a></p>
+                                <% } else { %>
+                                    <p class="posterName"><a href="user/<%= post.user_id %>"><%= post.username %></a></p>
+                                <% } %>
+                            <% } else { %>
+                                <p class="posterName">Anonymous</p>
+                            <% } %>
+                        </div>
+                        <div class="date">
+                            <p><%= post.timeAgo %></p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <p><%= post.message %></p>
+                    </div>
+                    <div class="postInfo">
+                        <div class="likes">
+                            <p>&#x1F44D;<span class="likeCount"><%= post.like_count %></span></p>
+                        </div>
+                        <% if (post.comment_count > 0){ %>
+                            <div class="comments">
+                                <p><%= post.comment_count %> comments</p>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="buttons">
+                        <% const liked = locals.likes.some(like => like.message_id == post.message_id);%>
+
+                        <% if (liked) { %>
+                            <div class="like">
+                                <img src="/like.png" alt="likeButton">
+                                <button class="likebtn liked" data-msgid="<%= post.message_id %>">Like</button>
+                            </div>
+                        <% } else { %>
+                            <div class="like">
+                                <img src="/like.png" alt="likeButton">
+                                <button class="likebtn" data-msgid="<%= post.message_id %>">Like</button>
+                            </div>
+                        <% } %>
+                        <div class="comment">
+                            <img src="/chat.png" alt="commentButton">
+                            <a href="/profile/comment/<%= post.message_id %>">Comment</a>
+                        </div>
+                    </div>
+                    <% if (locals.fromProfile && locals.currentUser.username == post.username) { %>
+                        <div class="postOptions">
+                            <% if (locals.currentUser.ismember) { %>
+                                <a href="/profile/edit/<%= post.message_id %>">Edit</a>
+                                <a href="/profile/delete/<%= post.message_id %>">Delete</a>
+                            <% } else { %>
+                                <a href="/notamember">Edit</a>
+                                <a href="/notamember">Delete</a>
+                            <% } %>
+                        </div>
+                    <% } %>
+                </div>
+            <%})%>
+            <% } else { %>
+                <h1>No Posts to show</h1>
+            <% } %>
