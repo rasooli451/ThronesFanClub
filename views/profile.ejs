@@ -1,0 +1,64 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>profile</title>
+</head>
+<body>
+    <main>
+    <%- include("Partials/header") %>
+    <div class="userInfo">
+            <div class="imgContainer">
+                <img src="/characters/<%= locals.currentUser.favorite %>.jpg" alt="profile">
+            </div>
+            <p><%= locals.currentUser.username %></p>
+            <% if (!locals.currentUser.ismember) { %>
+                <a href="">Become a Member</a>
+            <%} %>
+            <a href="/profile/deleteUser/<%= locals.currentUser.user_id %>">Delete Account</a>
+            <a href="/profile/editUser">Edit Account</a>
+    </div>
+    <div class="posts">
+        <%- include("Partials/posts") %>
+    </div>
+    </main>
+    <script>
+        document.querySelectorAll('.likebtn').forEach((btn,index) => {
+        btn.addEventListener('click', async () => {
+        const messageId = btn.getAttribute('data-msgid');
+        const likeCount = document.querySelectorAll(".likeCount")[index];
+        const numberOfLikes = Number(likeCount.textContent);
+        try {
+            const res = await fetch('/api/like', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ messageId, isLike : !btn.classList.contains("liked") ? true : false })
+            });
+
+            const data = await res.json();
+            if (data.success) {
+            // Update UI, e.g., increment like count, change button style, etc.
+            if (btn.classList.contains("liked")){
+                likeCount.textContent = numberOfLikes - 1;
+                btn.classList.remove("liked");
+            }
+            else{
+                likeCount.textContent = numberOfLikes + 1;
+                btn.classList.add("liked");
+            }
+            }
+        } catch (err) {
+            console.error('Error:', err);
+
+        }
+        });
+    });
+    </script>
+</body>
+</html>
