@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Edit Comment</title>
+</head>
+<body>
+    <main>
+        <%- include("Partials/header") %>
+        <form action="/profile/comment/edit/<%= locals.comment.comment_id %>" method="post">
+            <textarea name="comment" id="comment" required><%= locals.comment.comment %></textarea>
+            <input type="text" value="<%= locals.comment.message_id %>" class="hidden" name="message_id">
+            <button type="submit">Edit</button>
+        </form>
+    </main>
+</body>
+</html>
