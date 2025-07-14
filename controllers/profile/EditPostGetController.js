@@ -5,9 +5,11 @@ const {getPostById} = require("../../database/queries");
 
 
 const EditPostGetController = async function(req, res){
-    const {postid} = req.params;
-    const post = await getPostById(postid);
-    res.render("editpost", {post : post});
+    const {postinfo} = req.params;
+    const id = postinfo.split(",")[0];
+    const fromUser = postinfo.split(",")[1];
+    const post = await getPostById(id);
+    res.render("editpost", {post : post, fromUser});
 }
 
 
