@@ -13,7 +13,7 @@ const ProfileIndexController = async function(req, res){
     ...post,
     timeAgo: getTimeAgo(post.date)
     }));
-    res.render("profile", {posts : postsWithTimeAgo, likes, fromProfile : true});
+    res.render("profile", {posts : postsWithTimeAgo, likes, fromProfile : true, fromUser : false, user : req.user});
 }
 
 
