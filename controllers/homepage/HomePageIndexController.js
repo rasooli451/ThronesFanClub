@@ -12,7 +12,7 @@ const HomePageIndexController = async (req, res)=>{
     timeAgo: getTimeAgo(post.date)
     }));
 
-    res.render("homepage", {posts : postsWithTimeAgo, likes : likes, fromProfile : false});
+    res.render("homepage", {posts : postsWithTimeAgo, likes : likes, fromProfile : false, fromUser : false});
 }
 
 
