@@ -13,14 +13,22 @@
     <%- include("Partials/header") %>
     <div class="userInfo">
             <div class="imgContainer">
-                <img src="/characters/<%= locals.currentUser.favorite %>.jpg" alt="profile">
+                <img src="/characters/<%= locals.user.favorite %>.jpg" alt="profile">
             </div>
-            <p><%= locals.currentUser.username %></p>
-            <% if (!locals.currentUser.ismember) { %>
-                <a href="">Become a Member</a>
+            <p><%= locals.user.username %></p>
+            <% if (!locals.user.ismember) { %>
+                <% if (locals.fromProfile) { %>
+                    <a href="">Become a Member</a>
+                <%} else { %>
+                    <p>This User is not a member</p>
+                <% } %>
             <%} %>
-            <a href="/profile/deleteUser/<%= locals.currentUser.user_id %>">Delete Account</a>
-            <a href="/profile/editUser">Edit Account</a>
+            <% if (locals.currentUser.isadmin || locals.fromProfile) { %>
+                <a href="/profile/deleteUser/<%= locals.user.user_id %>,<%= locals.fromUser %>">Delete Account</a>
+                <% if (locals.fromProfile) { %>
+                    <a href="/profile/editUser">Edit Account</a>
+                <% } %>
+            <% } %>
     </div>
     <div class="posts">
         <%- include("Partials/posts") %>
