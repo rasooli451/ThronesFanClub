@@ -105,4 +105,16 @@ const deleteComment = asyncHandler(async function(comment_id){
     await Pool.query("DELETE FROM comments WHERE comment_id=$1", [comment_id]);
 })
 
-module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment};
+const getUser = asyncHandler(async function(user_id){
+    const {rows} = await Pool.query("SELECT * FROM users WHERE user_id=$1", [user_id]);
+    return rows[0];
+})
+
+const getUserIdFromMessageId = asyncHandler(async function(message_id){
+    const {rows } = await Pool.query("SELECT owner_id FROM messages WHERE message_id=$1", [message_id]);
+    console.log(`from db` + "" + message_id);
+    console.log(rows);
+    return rows[0].owner_id;
+})
+
+module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId};
