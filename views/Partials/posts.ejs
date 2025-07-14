@@ -17,7 +17,7 @@
                                 <% if (locals.currentUser.username == post.username) {%>
                                     <p class="posterName"><a href="/profile"><%= post.username %></a></p>
                                 <% } else { %>
-                                    <p class="posterName"><a href="user/<%= post.user_id %>"><%= post.username %></a></p>
+                                    <p class="posterName"><a href="/profile/user/<%= post.user_id %>"><%= post.username %></a></p>
                                 <% } %>
                             <% } else { %>
                                 <p class="posterName">Anonymous</p>
@@ -59,11 +59,11 @@
                             <a href="/profile/comment/<%= post.message_id %>">Comment</a>
                         </div>
                     </div>
-                    <% if (locals.fromProfile && locals.currentUser.username == post.username) { %>
+                    <% if ((locals.fromProfile && locals.currentUser.username == post.username) || (locals.fromUser && locals.currentUser.isadmin)) { %>
                         <div class="postOptions">
                             <% if (locals.currentUser.ismember) { %>
-                                <a href="/profile/edit/<%= post.message_id %>">Edit</a>
-                                <a href="/profile/delete/<%= post.message_id %>">Delete</a>
+                                <a href="/profile/edit/<%= post.message_id %>,<%= locals.fromUser %>">Edit</a>
+                                <a href="/profile/delete/<%= post.message_id %>,<%= locals.fromUser %>">Delete</a>
                             <% } else { %>
                                 <a href="/notamember">Edit</a>
                                 <a href="/notamember">Delete</a>
