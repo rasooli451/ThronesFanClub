@@ -1,7 +1,7 @@
 
 
 
-const {editPost} = require("../../database/queries");
+const {editPost, getUserIdFromMessageId} = require("../../database/queries");
 const {body,validationResult} = require("express-validator");
 
 
@@ -17,9 +17,15 @@ const EditPostPostController = [validateMessage ,async function(req, res){
         return res.status(500).render("errors", {errors : errors.array()});
     }
     const {postid} = req.params;
-    const {message} = req.body;
+    const {message, fromUser} = req.body;
     await editPost(postid, message);
-    res.redirect("/profile");
+    if (fromUser == 'true'){
+        const id = await getUserIdFromMessageId(postid);
+        res.redirect(`/profile/user/${id}`);
+    }
+    else{
+        res.redirect("/profile");
+    }
 }]
 
 
