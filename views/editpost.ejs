@@ -11,8 +11,8 @@
     <title>Edit Post</title>
 </head>
 <body>
-    <main>
-        <%- include("Partials/header") %>
+    <%- include("Partials/header") %>
+    <main class="appView small-form">
         <form action="/profile/edit/<%= locals.post.message_id %>" method="post">
             <h2>Edit post</h2>
             <div class="formSection">
@@ -20,11 +20,12 @@
                 <textarea name="message" id="message"><%= locals.post.message %></textarea>
             </div>
             <input type="text" value="<%= locals.fromUser %>" class="hidden" name="fromUser">
-            <div class="formSection">
-                <button type="submit">Edit</button>
+            <div class="formSection buttons">
                 <button type="reset">Reset</button>
+                <button type="submit">Edit</button>
             </div>
         </form>
     </main>
+    <script src="/sound.js"></script>
 </body>
 </html>

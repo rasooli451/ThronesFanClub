@@ -9,7 +9,8 @@
     <title>Not a member</title>
 </head>
 <body>
-    <main>
+    <%- include("Partials/header") %>
+    <main class="appView">
         <div class="message">
             <h1>You are not a member, therefore you can't: </h1>
             <ul>
@@ -17,8 +18,9 @@
                 <li>Delete Messages</li>
                 <li>Comment</li>
             </ul>
-            <h3>Become a <a href="">member</a> now by finding the answer to the riddle</h3>
+            <h3>Become a <a href="/profile/upgrade">member</a> now by finding the answer to the riddle</h3>
         </div>
     </main>
+    <script src="/sound.js"></script>
 </body>
 </html>

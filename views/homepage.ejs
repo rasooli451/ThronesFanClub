@@ -11,12 +11,10 @@
     <title>Simple App</title>
 </head>
 <body>
-    <main>
     <%- include("Partials/header") %>
-    <div class="main">
-        <div class="posts">
+    <main class="appView">
+    <div class="posts">
             <%- include("Partials/posts") %>
-        </div>
     </div>
     </main>
     <script>
@@ -53,5 +51,6 @@
         });
     });
     </script>
+   <script src="/sound.js"></script>
 </body>
 </html>

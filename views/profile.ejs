@@ -9,25 +9,27 @@
     <title>profile</title>
 </head>
 <body>
-    <main>
     <%- include("Partials/header") %>
-    <div class="userInfo">
+    <main class="appView">
+    <div class="userProfile">
             <div class="imgContainer">
                 <img src="/characters/<%= locals.user.favorite %>.jpg" alt="profile">
             </div>
             <p><%= locals.user.username %></p>
             <% if (!locals.user.ismember) { %>
                 <% if (locals.fromProfile) { %>
-                    <a href="">Become a Member</a>
+                    <a href="/profile/upgrade">Become a Member</a>
                 <%} else { %>
                     <p>This User is not a member</p>
                 <% } %>
             <%} %>
             <% if (locals.currentUser.isadmin || locals.fromProfile) { %>
-                <a href="/profile/deleteUser/<%= locals.user.user_id %>,<%= locals.fromUser %>">Delete Account</a>
+                <div class="accountOptions">
+                    <a href="/profile/deleteUser/<%= locals.user.user_id %>,<%= locals.fromUser %>">Delete Account</a>
                 <% if (locals.fromProfile) { %>
                     <a href="/profile/editUser">Edit Account</a>
                 <% } %>
+                </div>
             <% } %>
     </div>
     <div class="posts">
@@ -68,5 +70,6 @@
         });
     });
     </script>
+    <script src="/sound.js"></script>
 </body>
 </html>

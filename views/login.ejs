@@ -9,11 +9,11 @@
     <title>Login</title>
 </head>
 <body>
-    <main>
+    <main class="login-screen">
         <div class="introduction">
-        <h1 class="title">Welcome to the A Song Of Ice and Fire fan club, you can join but only a true fan can become a member and access all the perks.</h1>
+        <h1 class="title antiqua">Thrones FanClub</h1>
         </div>
-        <form action="/login" method="post">
+        <form action="/login" method="post" class="loginForm">
             <h2>Login</h2>
             <div class="formSection">
                 <label for="username">Username:</label>
@@ -23,14 +23,15 @@
                 <label for="password">Password:</label>
                 <input type="password" required placeholder="enter password..." id="password" name="password">
             </div>
-            <div class="formSection">
+            <div class="formSection buttons">
                 <button type="submit">Login</button>
                 <button type="reset">Reset</button>
             </div>
-            <div class="options">
+            <div class="option">
                 <li><a href="/signup">Sign Up</a> if you don't have an account.</li>
             </div>
         </form>
     </main>
+    <script src="/sound.js"></script>
 </body>
 </html>

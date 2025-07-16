@@ -7,7 +7,8 @@
     <title>Edit User</title>
 </head>
 <body>
-    <main>
+    <%- include("Partials/header") %>
+    <main class="appView small-form">
         <form action="/profile/editUser" method="post">
             <div class="formSection">
                 <label for="username">Username:</label>
@@ -33,9 +34,9 @@
                     <option value="sandorclegane">Sandor Clegane</option>
                 </select>
             </div>
-            <div class="formSection">
-                <button type="submit">Edit</button>
+            <div class="formSection buttons">
                 <button type="reset">Reset</button>
+                <button type="submit">Edit</button>
             </div>
         </form>
     </main>
@@ -44,5 +45,6 @@
         const userFavorite = selectElement.getAttribute("data-favorite");
         selectElement.value = userFavorite;
     </script>
+    <script src="/sound.js"></script>
 </body>
 </html>

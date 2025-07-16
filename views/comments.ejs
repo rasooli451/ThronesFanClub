@@ -7,8 +7,8 @@
     <title>Comments</title>
 </head>
 <body>
-    <main>
-        <%- include("Partials/header") %>
+    <%- include("Partials/header") %>
+    <main class="appView">
         <div class="comments">
             <% if (locals.comments.length > 0) { %>
                 <% locals.comments.forEach((comment)=> { %>
@@ -37,5 +37,6 @@
             <button type="submit">Post</button>
         </form>
     </main>
+    <script src="/sound.js"></script>
 </body>
 </html>

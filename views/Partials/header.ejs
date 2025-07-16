@@ -7,14 +7,14 @@
 
 <header>
     <div class="userInfo">
-        <p>Signed in as <%= locals.currentUser.username %></p>
-        <h1 class="">ThronesFanClub</h1>
+        <h1 class="antiqua">ThronesFanClub</h1>
+        <p><%= locals.currentUser.username %></p>
     </div>
     <ul>
-        <li><a href="/homepage">Home</a></li>
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/homepage/post">New Post</a></li>
-        <li><a href="">Upgrade</a></li>
-        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/homepage">Home<span></span></a></li>
+        <li><a href="/profile">Profile<span></span></a></li>
+        <li><a href="/homepage/post">New Post<span></span></a></li>
+        <li><a href="/profile/upgrade">Upgrade<span></span></a></li>
+        <li><a href="/logout">Log Out<span></span></a></li>
     </ul>
 </header>

@@ -8,23 +8,23 @@
 <% if (locals.posts.length > 0){ %>
             <% locals.posts.forEach((post)=>{ %>
                 <div class="post">
-                    <div class="postInfo">
+                    <div class="posterInfo">
                         <div class="poster">
                             <div class="image">
-                                <img src="/characters/<%= post.favorite %>.jpg" alt="profile">
+                                <img src="/characters/<%= post.favorite %>.jpg" alt="profile" class="small-image">
                             </div>
-                            <% if (locals.currentUser.ismember || locals.currentUser.username == post.username) { %>
-                                <% if (locals.currentUser.username == post.username) {%>
-                                    <p class="posterName"><a href="/profile"><%= post.username %></a></p>
-                                <% } else { %>
-                                    <p class="posterName"><a href="/profile/user/<%= post.user_id %>"><%= post.username %></a></p>
-                                <% } %>
+                            <div class="nameandtime">
+                                <% if (locals.currentUser.ismember || locals.currentUser.username == post.username) { %>
+                                    <% if (locals.currentUser.username == post.username) {%>
+                                        <p class="posterName"><a href="/profile"><%= post.username %></a></p>
+                                    <% } else { %>
+                                        <p class="posterName"><a href="/profile/user/<%= post.user_id %>"><%= post.username %></a></p>
+                                    <% } %>
                             <% } else { %>
                                 <p class="posterName">Anonymous</p>
                             <% } %>
-                        </div>
-                        <div class="date">
                             <p><%= post.timeAgo %></p>
+                            </div>
                         </div>
                     </div>
                     <div class="message">
@@ -32,31 +32,33 @@
                     </div>
                     <div class="postInfo">
                         <div class="likes">
-                            <p>&#x1F44D;<span class="likeCount"><%= post.like_count %></span></p>
+                            <img src="/likereaction.png" alt="likes" class="numoflikes">
+                            <p><span class="likeCount"><%= post.like_count %></span></p>
                         </div>
                         <% if (post.comment_count > 0){ %>
                             <div class="comments">
-                                <p><%= post.comment_count %> comments</p>
+                                <% if (post.comment_count == 1) { %>
+                                <p><%= post.comment_count %> comment</p>
+                                <% } else { %>
+                                    <p><%= post.comment_count %> comments</p>
+                                <% } %>
                             </div>
                         <% } %>
                     </div>
-                    <div class="buttons">
+                    <div class="likeandcommentbtns">
                         <% const liked = locals.likes.some(like => like.message_id == post.message_id);%>
 
                         <% if (liked) { %>
                             <div class="like">
-                                <img src="/like.png" alt="likeButton">
                                 <button class="likebtn liked" data-msgid="<%= post.message_id %>">Like</button>
                             </div>
                         <% } else { %>
                             <div class="like">
-                                <img src="/like.png" alt="likeButton">
                                 <button class="likebtn" data-msgid="<%= post.message_id %>">Like</button>
                             </div>
                         <% } %>
                         <div class="comment">
-                            <img src="/chat.png" alt="commentButton">
-                            <a href="/profile/comment/<%= post.message_id %>">Comment</a>
+                            <a href="/profile/comment/<%= post.message_id %>" class="commentBtn">Comment</a>
                         </div>
                     </div>
                     <% if ((locals.fromProfile && locals.currentUser.username == post.username) || (locals.fromUser && locals.currentUser.isadmin)) { %>

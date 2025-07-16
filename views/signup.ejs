@@ -12,8 +12,12 @@
     <title>SignUp</title>
 </head>
 <body>
-    <main>
+    <main class="login-screen">
+         <div class="introduction">
+        <h1 class="title antiqua">Thrones FanClub</h1>
+        </div>
         <form action="/signup" method="post">
+            <h2>Sign Up</h2>
             <div class="formSection">
                 <label for="username">Username:</label>
                 <input type="text" id="username" placeholder="enter username..." name="username" required>
@@ -46,14 +50,15 @@
                     <option value="sandorclegane">Sandor Clegane</option>
                 </select>
             </div>
-            <div class="formSection">
+            <div class="formSection buttons">
                 <button type="submit">Register</button>
                 <button type="reset">Reset</button>
             </div>
-            <div class="options">
+            <div class="option">
                 <li><a href="/login">Log in</a> if you already have an account.</li>
             </div>
         </form>
     </main>
+    <script src="/sound.js"></script>
 </body>
 </html>

@@ -7,13 +7,14 @@
     <title>Edit Comment</title>
 </head>
 <body>
-    <main>
-        <%- include("Partials/header") %>
+    <%- include("Partials/header") %>
+    <main class="appView">
         <form action="/profile/comment/edit/<%= locals.comment.comment_id %>" method="post">
             <textarea name="comment" id="comment" required><%= locals.comment.comment %></textarea>
             <input type="text" value="<%= locals.comment.message_id %>" class="hidden" name="message_id">
             <button type="submit">Edit</button>
         </form>
     </main>
+    <script src="/sound.js"></script>
 </body>
 </html>
