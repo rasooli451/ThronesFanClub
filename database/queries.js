@@ -117,4 +117,12 @@ const getUserIdFromMessageId = asyncHandler(async function(message_id){
     return rows[0].owner_id;
 })
 
-module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId};
+const updateMembership = asyncHandler(async function(user_id){
+    await Pool.query("UPDATE users SET ismember=1 WHERE user_id=$1", [user_id]);
+})
+
+const revokeMembership = asyncHandler(async function(user_id){
+    await Pool.query("UPDATE users SET ismember=0 WHERE user_id=$1", [user_id]);
+})
+
+module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership};
