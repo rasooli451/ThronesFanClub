@@ -3,12 +3,21 @@
 
 
 
+@font-face {
+    font-family: EBGaramond;
+    src: url(./fonts/EBGaramond.ttf);
+}
+
+@font-face {
+    font-family: UncialAntiqua;
+    src: url(./fonts/UncialAntiqua.ttf);
+}
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: EBGaramond, sans-serif;
 }
 
 
@@ -16,61 +25,138 @@
 
 body{
     width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100vh;
     background-color: #000;
-
+    cursor: url("./resizedcursor.png") 4 2, auto;
+    
 }
 
-header{
-    width: 100%;
-    border-bottom: 2px solid #fff;
-    background-color: #000;
-    columns: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
-
-header ul{
-    list-style: none;
-    display: flex;
-}
-
-
-header ul a{
-    text-decoration: none;
-    color: #fff;
-    cursor: pointer;
-}
-
-li{
-    margin: 0 1em;
-}
 
 main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 100%;
+}
+
+
+.appView{
+    background-color: rgb(15, 15, 48);
+    color: #000;
+}
+
+.antiqua{
+    font-family: UncialAntiqua, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.title{
+    margin-bottom: 1em;
     color: #fff;
 }
 
-.main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+
+
+a{
+    cursor: inherit;
 }
 
+
+
+
+
+.small-image{
+    width: 50px;
+    height: 50px;
+}
 
 
 form{
-    width: 500px;
-    padding: 2em 0;
+    width: 400px;
+    padding: 2em 1em;
     border-radius: 25px;
     background-color: #fff;
     color: #000;
+}
+
+.formSection{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.loginForm{
+
+}
+
+.login-screen{
+    background: url(./background.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+input{
+    width: 75%;
+    border: 1px solid #000;
+    outline: none;
+    color: #000;
+    cursor: inherit;
+}
+
+.buttons{
+    justify-content: center;
+    text-align: center;
+
+}
+
+button{
+    cursor: inherit;
+}
+
+.buttons button{
+    background-color: #21678B;
+    color: #fff;
+    border-radius: 7px;
+}
+
+.buttons button:hover{
+    background-color: #042a3d;
+}
+
+.buttons button{
+    margin: 0 2em;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+    height: 30px;
+    padding: 5px;
+}
+
+.option{
+    text-align: center;
+}
+
+
+li{
+    list-style: none;
+}
+
+select{
+    padding: 5px;
+}
+
+option{
+    text-align: center;
+    padding: 5px;
 }
 
 
@@ -80,10 +166,243 @@ form{
     margin-bottom: 10px;
 }
 
-input{
-    float: right;
+
+header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: rgb(66, 66, 148);
+    color: #fff;
 }
 
+
+header ul{
+    list-style: none;
+    display: flex;
+    width: 70%;
+    justify-content: space-around;
+}
+
+header a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+header li{
+    padding: 10px 0;
+    overflow: hidden;
+}
+header a:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 0;
+    left: -100%;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+header a:after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: 0;
+    right: -100%;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+header a:hover:before {
+    left: 0;
+}
+
+header a:hover:after {
+    right: 0;
+}
+
+a span:before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    top: -100%;
+    right: 0;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+a span:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    bottom: -100%;
+    left: 0;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+header a:hover span:before {
+    top: 0;
+}
+
+header a:hover span:after {
+    bottom: 0;
+}
+
+
+header .userInfo{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+header .userInfo h1{
+    margin-right: 15px;
+}
+
+
+.posts{
+    width: 60%;
+    margin: 0.5em auto;
+}
+
+.posts h1{
+    text-align: center;
+    color: #fff;
+    margin: 3em 0;
+}
+
+
+
+
+
+
+.post{
+    width: 100%;
+    color: #fff;
+    padding: 10px;
+    background-color: #081025;
+}
+
+.poster{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nameandtime{
+    text-align: center;
+    
+}
+
+
+.image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.small-image{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.poster p{
+    font-size: 1.5em;
+}
+
+.poster p a{
+    text-decoration: none;
+}
+
+
+.message{
+    padding: 15px;
+    font-size: 1.4em;
+
+}
+
+.postInfo{
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.likes{
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.numoflikes{
+    width: 25px;
+    height: 25px;
+}
+
+
+.likeandcommentbtns, .postOptions{
+    margin-top: 7px;
+    width: 100%;
+    display: flex;
+}
+
+
+.like, .comment{
+    display: flex;
+    gap: 4px;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.like:hover, .comment:hover, .postOptions a:hover{
+    background-color: rgb(15, 15, 48);
+}
+
+.comment a{
+    width: 100%;
+}
+
+
+.commentBtn{
+    text-decoration: none;
+    color: #fff;
+}
+
+
+.likebtn{
+    border: none;
+    outline: none;
+    background : transparent;
+    color: #fff;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.liked{
+    color: blue;
+}
 
 .errors { 
     width: 600px;
@@ -93,6 +412,110 @@ input{
     gap: 1em;
 }
 
+
+.post{
+    border: 1px solid #3a3744;
+    border-radius: 15px;
+    margin: 1em 0;
+}
+
+
+.userProfile{
+    margin-top: 3em;
+    text-align: center;
+    columns: #fff;
+}
+
+.userProfile p{
+    color: #Fff;
+    font-size: 2em;
+    font-weight: 500;
+    margin: 0.5em 0;
+}
+
+.userProfile a{
+    text-decoration: none;
+    margin: 0.5em 0;
+    font-size: 1.2em;
+}
+
+.imgContainer{
+    width: 500px;
+    height: 500px;
+    margin-bottom: 1em;
+}
+
+.imgContainer img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.accountOptions{
+    margin-top: 1em;
+}
+
+.accountOptions a{
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    background-color: #081025;
+    border-radius: 10px;
+}
+
+
+.accountOptions a:hover{
+    background-color: #3a3744;
+}
+
+
+
+
+
+.postOptions a{
+    width: 50%;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+.small-form{
+    min-height: 90vh;
+}
+
+
+
+.messageLabel{
+    width: 100%;
+}
+
+
+#message{
+    resize: none;
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    outline: none;
+    cursor: inherit;
+    margin-top: 10px;
+}
+
+.riddle{
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+
+#riddle{
+    width: 100%;
+}
+
+#confirmPassword{
+    width: 100%;
+}
 
 .error{
     padding: 10px;
