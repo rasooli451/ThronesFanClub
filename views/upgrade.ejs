@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Upgrade Account</title>
+</head>
+<body>
+    <%- include("Partials/header") %>
+    <main class="appView small-form">
+        <form action="/profile/upgrade" method="post">
+            <h2>Answer the following riddle:</h2>
+            <div class="formSection">
+                <label for="riddle" class="riddle">In the books, one of the noble houses keeps a treasured object in their crypt that is said to be older than the current castle walls.
+It is black as night and said to be 'as sharp as a lover's tongue.'
+This object is tied to a prince who was once both a dragon and a wolf.
+What is this object?</label>
+                <input type="text" name="answer" required id="riddle" placeholder="The answer is just one word...">
+            </div>
+            <div class="formSection">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </main>
+    <script src="/sound.js"></script>
+</body>
+</html>
