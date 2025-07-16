@@ -16,6 +16,9 @@ HomePageRouter.get("/", HomePageIndexController);
 
 
 HomePageRouter.get("/post", (req, res)=>{
+    if (req.user == undefined){
+      return res.render("errors", {errors : [{msg : "You are not logged in, please Log In first."}]})
+    }
     res.render("newpost.ejs");
 })
 
@@ -23,9 +26,6 @@ HomePageRouter.post("/post", HomePageNewPostController);
 
 
 
-HomePageRouter.get("/profile", (req,res)=>{
-
-})
 
 
 
