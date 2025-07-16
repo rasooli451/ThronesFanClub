@@ -15,6 +15,9 @@ const CommentEditPostController = [validateEdit, async function(req, res){
     }
     const {comment, message_id} = req.body;
     const {commentid} = req.params;
+    if (isNaN(commentid)){
+        return res.status(404).render("errors", {errors : [{msg : 'Comment does not exist!'}]})
+    }
     await editComment(commentid, comment);
     res.redirect(`/profile/comment/${message_id}`);
 }]

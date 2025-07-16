@@ -5,6 +5,9 @@ const {deleteUser} = require("../../database/queries");
 
 
 const DeleteUserController = async function(req, res){
+    if (req.user == undefined){
+      return res.render("errors", {errors : [{msg : "You are not logged in, please Log In first."}]})
+    }
     const {userinfo} = req.params;
     const userid = userinfo.split(",")[0];
     const fromUser = userinfo.split(",")[1];

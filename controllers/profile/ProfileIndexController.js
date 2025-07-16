@@ -7,6 +7,9 @@ const {getAllLikesByUser, getPostsByUser} = require("../../database/queries");
 
 
 const ProfileIndexController = async function(req, res){
+    if (req.user == undefined){
+      return res.render("errors", {errors : [{msg : "You are not logged in, please Log In first."}]})
+    }
     const AllPosts = await getPostsByUser(req.user.user_id);
     const likes = await getAllLikesByUser(req.user.user_id);
      const postsWithTimeAgo = AllPosts.map(post => ({
@@ -32,11 +35,11 @@ function getTimeAgo(timestamp) {
   const diffYear = Math.floor(diffDay / 365);
 
   if (diffHr < 1) {
-    return `${diffMin} minutes ago`;
+    return `${diffMin}m`;
   } else if (diffDay < 1) {
-    return `${diffHr} hours ago`;
+    return `${diffHr}h`;
   } else if (diffDay < 30) {
-    return `${diffDay} days ago`;
+    return `${diffDay}d`;
   } else if (diffYear < 1) {
     const options = { month: 'long', day: 'numeric' }; // e.g., "June 15"
     return postDate.toLocaleDateString('en-US', options);
