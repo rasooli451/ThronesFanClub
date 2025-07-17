@@ -8,20 +8,23 @@
 </head>
 <body>
     <%- include("Partials/header") %>
-    <main class="appView">
-        <div class="comments">
+    <main class="appView commentPage">
+        <div class="postComments">
+            <h1>Comments</h1>
             <% if (locals.comments.length > 0) { %>
                 <% locals.comments.forEach((comment)=> { %>
-                <div class="comment">
+                <div class="userComment">
                     <div class="commenter">
-                        <img src="/characters/<%= comment.favorite %>.jpg" alt="profile">
+                        <div class="commenterimage">
+                            <img src="/characters/<%= comment.favorite %>.jpg" alt="profile">
+                        </div>
                         <p><%= comment.username %></p>
                     </div>
                     <div class="content">
                         <%= comment.comment %>
                     </div>
                     <% if (locals.currentUser.isadmin || locals.currentUser.username == comment.username) { %>
-                        <div class="options">
+                        <div class="buttonOptions">
                         <a href="/profile/comment/edit/<%= comment.comment_id %>">Edit</a>
                         <a href="/profile/comment/delete/<%= comment.comment_id %>,<%= comment.message_id %>">Delete</a>
                         </div>
@@ -32,9 +35,9 @@
                 <h2>No Comments yet, be the first to comment.</h2>
             <% } %>
         </div>
-        <form action="/profile/comment/<%= locals.message_id %>" method="post">
+        <form action="/profile/comment/<%= locals.message_id %>" method="post" class="commentInput">
             <textarea name="comment" id="comment" placeholder="write a comment..." required></textarea>
-            <button type="submit">Post</button>
+            <button type="submit">Comment</button>
         </form>
     </main>
     <script src="/sound.js"></script>

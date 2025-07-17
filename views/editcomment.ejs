@@ -8,8 +8,9 @@
 </head>
 <body>
     <%- include("Partials/header") %>
-    <main class="appView">
-        <form action="/profile/comment/edit/<%= locals.comment.comment_id %>" method="post">
+    <main class="appView bigHeight">
+        <form action="/profile/comment/edit/<%= locals.comment.comment_id %>" method="post" class="editCommentForm headerBG">
+            <h2>Edit Comment</h2>
             <textarea name="comment" id="comment" required><%= locals.comment.comment %></textarea>
             <input type="text" value="<%= locals.comment.message_id %>" class="hidden" name="message_id">
             <button type="submit">Edit</button>

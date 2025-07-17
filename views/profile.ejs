@@ -16,6 +16,9 @@
                 <img src="/characters/<%= locals.user.favorite %>.jpg" alt="profile">
             </div>
             <p><%= locals.user.username %></p>
+            <% if (locals.user.isadmin) {%>
+                <p>Admin</p>
+            <% } %>
             <% if (!locals.user.ismember) { %>
                 <% if (locals.fromProfile) { %>
                     <a href="/profile/upgrade">Become a Member</a>

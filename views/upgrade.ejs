@@ -11,7 +11,7 @@
 <body>
     <%- include("Partials/header") %>
     <main class="appView small-form">
-        <form action="/profile/upgrade" method="post">
+        <form action="/profile/upgrade" method="post" class="headerBG">
             <h2>Answer the following riddle:</h2>
             <div class="formSection">
                 <label for="riddle" class="riddle">In the books, one of the noble houses keeps a treasured object in their crypt that is said to be older than the current castle walls.
@@ -20,7 +20,7 @@ This object is tied to a prince who was once both a dragon and a wolf.
 What is this object?</label>
                 <input type="text" name="answer" required id="riddle" placeholder="The answer is just one word...">
             </div>
-            <div class="formSection">
+            <div class="formSection buttons">
                 <button type="submit">Submit</button>
             </div>
         </form>

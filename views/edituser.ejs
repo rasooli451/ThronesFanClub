@@ -9,7 +9,8 @@
 <body>
     <%- include("Partials/header") %>
     <main class="appView small-form">
-        <form action="/profile/editUser" method="post">
+        <form action="/profile/editUser" method="post" class="headerBG">
+            <h2>Edit User</h2>
             <div class="formSection">
                 <label for="username">Username:</label>
                 <input type="text" id="username" placeholder="enter username..." name="username" required value="<%= locals.currentUser.username %>">
