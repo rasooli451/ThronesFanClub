@@ -52,7 +52,12 @@ const getPostsByUser = asyncHandler(async function(user_id){
 
 const getPostById = asyncHandler(async function(message_id){
     const {rows} = await Pool.query("SELECT * FROM messages WHERE message_id=($1)", [message_id]);
-    return rows[0];
+    if (rows.length > 0){
+        return rows[0];
+    }
+    else{
+        return null;
+    }
 })
 
 
@@ -66,7 +71,25 @@ const deletePost = asyncHandler(async function(message_id){
 })
 
 const deleteUser = asyncHandler(async function(user_id){
-    await Pool.query("DELETE FROM users WHERE user_id=($1)", [user_id]);
+    const userExists = await userExistsById(user_id);
+    if (userExists){
+        await Pool.query("DELETE FROM users WHERE user_id=($1)", [user_id]);
+        return true;
+    }
+    else{
+        return false;
+    }
+})
+
+
+const userExistsById = asyncHandler(async function(user_id){
+    const {rows} = await Pool.query("SELECT * FROM users WHERE user_id=($1)", [user_id]);
+    if (rows.length > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
 })
 
 const userExists = asyncHandler(async function(username){
@@ -94,7 +117,12 @@ const editUser = asyncHandler(async function(user_id, username, email, character
 
 const getCommentById = asyncHandler(async function(comment_id){
     const {rows} = await Pool.query("SELECT * FROM comments WHERE comment_id=$1", [comment_id]);
-    return rows[0];
+    if (rows.length > 0){
+        return rows[0];
+    }
+    else{
+        return null;
+    }
 })
 
 const editComment = asyncHandler(async function(comment_id, comment){
@@ -107,14 +135,20 @@ const deleteComment = asyncHandler(async function(comment_id){
 
 const getUser = asyncHandler(async function(user_id){
     const {rows} = await Pool.query("SELECT * FROM users WHERE user_id=$1", [user_id]);
-    return rows[0];
+    if (rows.length > 0){
+        return rows[0];
+    }
+    else{
+        return null;
+    }
 })
 
 const getUserIdFromMessageId = asyncHandler(async function(message_id){
     const {rows } = await Pool.query("SELECT owner_id FROM messages WHERE message_id=$1", [message_id]);
-    console.log(`from db` + "" + message_id);
-    console.log(rows);
-    return rows[0].owner_id;
+    if (rows.length > 0)
+       return rows[0].owner_id;
+    else
+        return null;
 })
 
 const updateMembership = asyncHandler(async function(user_id){
@@ -125,4 +159,4 @@ const revokeMembership = asyncHandler(async function(user_id){
     await Pool.query("UPDATE users SET ismember=0 WHERE user_id=$1", [user_id]);
 })
 
-module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership};
+module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership, userExistsById};
