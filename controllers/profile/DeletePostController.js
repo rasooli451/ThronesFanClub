@@ -1,5 +1,5 @@
 const {deletePost,getUserIdFromMessageId} = require("../../database/queries");
-
+const isNumeric = require("../../helper/isNumeric");
 
 
 const DeletePostController = async function(req, res){
@@ -8,14 +8,33 @@ const DeletePostController = async function(req, res){
     }
     const {postinfo} = req.params;
     const postid = postinfo.split(",")[0];
-    const fromUser = postinfo.split(",")[1];
-    let redirectURL = "/profile";
-    if (fromUser == "true"){
-        const owner = await getUserIdFromMessageId(postid);
-        redirectURL = `/profile/user/${owner}`;
-    }
-    await deletePost(postid);
-    res.redirect(redirectURL);
+    let problem = false;
+    if (isNumeric(postid)){
+      const fromUser = postinfo.split(",")[1];
+      let redirectURL = "/profile";
+      if (fromUser == "true"){
+        if (req.user.isadmin){
+          const owner = await getUserIdFromMessageId(postid);
+          if (owner == null){
+              problem = true;
+          }
+          redirectURL = `/profile/user/${owner}`; 
+        }
+        else{
+          problem = true;
+        }
+      }
+      if (!problem){
+        await deletePost(postid);
+        res.redirect(redirectURL);
+      }
+      else{
+        return res.status(500).render("errors", {errors: [{msg : "Deletion unsuccessful, You are not an Admin or post doesn't exist"}]});
+      }
+      }
+      else{
+         res.status(404).render("errors", {errors : [{msg : "Id is not a number."}]})
+      }
 }
 
 
