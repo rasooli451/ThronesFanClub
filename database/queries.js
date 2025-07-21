@@ -159,4 +159,25 @@ const revokeMembership = asyncHandler(async function(user_id){
     await Pool.query("UPDATE users SET ismember=0 WHERE user_id=$1", [user_id]);
 })
 
-module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership, userExistsById};
+
+const doesUserOwnPost = asyncHandler(async function(message_id, user_id){
+    const {rows} = await Pool.query("SELECT * FROM messages WHERE message_id=$1 AND owner_id=$2", [message_id, user_id]);
+    if (rows.length > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+})
+
+const doesUserOwnComment = asyncHandler(async function(comment_id, owner_id){
+    const {rows} = await Pool.query("SELECT * FROM comments WHERE comment_id=$1 AND owner_id=$2",[comment_id, owner_id]);
+    if (rows.length > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+})
+
+module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership, userExistsById, doesUserOwnPost, doesUserOwnComment};
