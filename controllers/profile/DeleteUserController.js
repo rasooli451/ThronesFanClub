@@ -27,7 +27,7 @@ const DeleteUserController = async function(req, res){
     }
         else{
             const exists = await userExistsById(userid);
-            if (exists){
+            if (exists && userid == req.user.user_id){
                 req.logout(err => {
                     if (err) return res.status(500).render("errors", {errors : [err]});
 
@@ -41,7 +41,7 @@ const DeleteUserController = async function(req, res){
                     });
             }
             else{
-                res.status(500).render("errors", {errors: [{msg : "Deletion unsuccessful, You are not an Admin!"}]});
+                res.status(500).render("errors", {errors: [{msg : "Deletion unsuccessful, a problem occured!"}]});
             }
         }
     }

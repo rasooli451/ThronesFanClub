@@ -1,7 +1,7 @@
 
 
 
-const {getPostById} = require("../../database/queries");
+const {getPostById, doesUserOwnPost} = require("../../database/queries");
 const isNumeric = require("../../helper/isNumeric");
 
 
@@ -14,6 +14,10 @@ const EditPostGetController = async function(req, res){
     }
     const {postinfo} = req.params;
     const id = postinfo.split(",")[0];
+    const userOwnsMessage = await doesUserOwnPost(id, req.user.user_id);
+    if (!userOwnsMessage && req.user.isadmin == 0){
+        return res.status(500).render("errors", {errors : [{msg : "You can't edit other user's posts"}]});
+    }
     if (isNumeric(id)){
       const fromUser = postinfo.split(",")[1];
       const post = await getPostById(id);

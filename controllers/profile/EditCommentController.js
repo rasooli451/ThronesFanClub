@@ -1,7 +1,7 @@
 
 
 
-const {getCommentById} = require("../../database/queries");
+const {getCommentById, doesUserOwnComment} = require("../../database/queries");
 const isNumeric = require("../../helper/isNumeric");
 
 
@@ -12,6 +12,10 @@ const EditCommentController = async function(req, res){
       return res.render("errors", {errors : [{msg : "You are not logged in, please Log In first."}]})
     }
     const {commentid} = req.params;
+    const userOwnsComment = await doesUserOwnComment(commentid, req.user.user_id);
+    if (!userOwnsComment && !req.user.isadmin){
+        return res.status(500).render("errors", {errors : [{msg : "You can't edit other user's comments"}]});
+    }
     if (isNumeric(commentid)){
       const comment = await getCommentById(commentid);
       if (comment != null)

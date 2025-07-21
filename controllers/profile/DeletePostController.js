@@ -1,4 +1,4 @@
-const {deletePost,getUserIdFromMessageId} = require("../../database/queries");
+const {deletePost,getUserIdFromMessageId, doesUserOwnPost} = require("../../database/queries");
 const isNumeric = require("../../helper/isNumeric");
 
 
@@ -24,12 +24,18 @@ const DeletePostController = async function(req, res){
           problem = true;
         }
       }
+      else{
+        const userOwnsPost = await doesUserOwnPost(postid, req.user.user_id);
+        if (!userOwnsPost){
+          problem = true;
+        }
+      }
       if (!problem){
         await deletePost(postid);
         res.redirect(redirectURL);
       }
       else{
-        return res.status(500).render("errors", {errors: [{msg : "Deletion unsuccessful, You are not an Admin or post doesn't exist"}]});
+        return res.status(500).render("errors", {errors: [{msg : "Deletion unsuccessful, You are not an Admin or post doesn't exist or you are trying to delete another user's post."}]});
       }
       }
       else{

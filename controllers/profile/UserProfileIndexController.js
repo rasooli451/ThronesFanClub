@@ -11,6 +11,9 @@ const UserProfileIndexController = async function(req, res){
     if (req.user == undefined){
       return res.render("errors", {errors : [{msg : "You are not logged in, please Log In first."}]})
     }
+    if (!req.user.ismember){
+      return res.render("notamember");
+    }
     const {id} = req.params;
     if (isNumeric(id)){
       const user = await getUser(id);

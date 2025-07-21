@@ -3,8 +3,9 @@
 
 
 
-const {getCommentsForPost} = require("../../database/queries");
+const {getCommentsForPost, getPostById} = require("../../database/queries");
 const isNumeric = require("../../helper/isNumeric");
+const { post } = require("../../routes/HomePageRouter");
 
 
 //post should exist, if post doesn't exist, there should be a text saying post doesn't exist
@@ -14,6 +15,10 @@ const CommentGetController = async function(req, res){
     }
     const {postid} = req.params;
     if (isNumeric(postid)){
+      const post = await getPostById(postid);
+      if (post == null){
+        return res.status(404).render("errors", {errors : [{msg : "This post doesn't exist!"}]});
+      }
       const comments = await getCommentsForPost(postid);
       res.render("comments", {comments, message_id : postid});
     }
