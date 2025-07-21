@@ -56,7 +56,7 @@ main{
 }
 
 
-.homepage h2{
+.homepage h2, .posts h2{
     color: #fff;
     margin: 1em 0;
     font-size : 2em;
@@ -665,3 +665,23 @@ header .userInfo h1{
 .headerBG input, .headerBG textarea, .headerBG button{
     font-size: 1.2em;
 }
+
+
+
+footer{
+    padding: 1em;
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    background-color : rgb(66, 66, 148);
+    color: #fff;
+}
+
+footer a{
+    color: black;
+}
+
