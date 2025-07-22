@@ -13,7 +13,6 @@ const passport = require("passport");
 const {body, validationResult} = require("express-validator");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcryptjs");
-const { error } = require("node:console");
 const asyncHandler = require("express-async-handler");
 const pgSession = require("connect-pg-simple")(session);
 const HomePageRouter = require("./routes/HomePageRouter");
