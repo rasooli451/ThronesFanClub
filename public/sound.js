@@ -11,11 +11,10 @@ document.addEventListener("click", ()=>{
 
 
 document.querySelectorAll('button,input,a,textarea').forEach(element => {
-  if (!element.classList.contains("nosound")){
     element.addEventListener('click', (e) => {
       const soundClone = buttonSound.cloneNode();
-      soundClone.play();
+      if (!element.classList.contains("nosound"))
+           soundClone.play();
       e.stopPropagation();
-    });
-  }  
+    });  
   });
