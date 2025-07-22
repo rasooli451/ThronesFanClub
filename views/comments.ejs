@@ -25,7 +25,7 @@
                     </div>
                     <% if (locals.currentUser.isadmin || locals.currentUser.username == comment.username) { %>
                         <div class="buttonOptions">
-                        <a href="/profile/comment/edit/<%= comment.comment_id %>">Edit</a>
+                        <a href="/profile/comment/edit/<%= comment.comment_id %>" class="nosound">Edit</a>
                         <a href="/profile/comment/delete/<%= comment.comment_id %>,<%= comment.message_id %>">Delete</a>
                         </div>
                     <% } %>
@@ -37,7 +37,7 @@
         </div>
         <form action="/profile/comment/<%= locals.message_id %>" method="post" class="commentInput">
             <textarea name="comment" id="comment" placeholder="write a comment..." required></textarea>
-            <button type="submit">Comment</button>
+            <button type="submit" class="nosound">Comment</button>
         </form>
     </main>
     <%- include("Partials/footer") %>

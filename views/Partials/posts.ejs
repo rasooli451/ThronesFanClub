@@ -16,9 +16,9 @@
                             <div class="nameandtime">
                                 <% if (locals.currentUser.ismember || locals.currentUser.username == post.username) { %>
                                     <% if (locals.currentUser.username == post.username) {%>
-                                        <p class="posterName"><a href="/profile"><%= post.username %></a></p>
+                                        <p class="posterName"><a href="/profile" class="nosound"><%= post.username %></a></p>
                                     <% } else { %>
-                                        <p class="posterName"><a href="/profile/user/<%= post.user_id %>"><%= post.username %></a></p>
+                                        <p class="posterName"><a href="/profile/user/<%= post.user_id %>" class="nosound"><%= post.username %></a></p>
                                     <% } %>
                             <% } else { %>
                                 <p class="posterName">Anonymous</p>
@@ -58,17 +58,17 @@
                             </div>
                         <% } %>
                         <div class="comment">
-                            <a href="/profile/comment/<%= post.message_id %>" class="commentBtn">Comment</a>
+                            <a href="/profile/comment/<%= post.message_id %>" class="commentBtn nosound">Comment</a>
                         </div>
                     </div>
                     <% if ((locals.fromProfile && locals.currentUser.username == post.username) || (locals.fromUser && locals.currentUser.isadmin)) { %>
                         <div class="postOptions">
                             <% if (locals.currentUser.ismember) { %>
-                                <a href="/profile/edit/<%= post.message_id %>,<%= locals.fromUser %>">Edit</a>
+                                <a href="/profile/edit/<%= post.message_id %>,<%= locals.fromUser %>" class="nosound">Edit</a>
                                 <a href="/profile/delete/<%= post.message_id %>,<%= locals.fromUser %>">Delete</a>
                             <% } else { %>
-                                <a href="/notamember">Edit</a>
-                                <a href="/notamember">Delete</a>
+                                <a href="/notamember" class="nosound">Edit</a>
+                                <a href="/notamember" class="nosound">Delete</a>
                             <% } %>
                         </div>
                     <% } %>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <title>profile</title>
+    <title>Profile</title>
 </head>
 <body>
     <%- include("Partials/header") %>
@@ -21,16 +21,16 @@
             <% } %>
             <% if (!locals.user.ismember) { %>
                 <% if (locals.fromProfile) { %>
-                    <a href="/profile/upgrade">Become a Member</a>
+                    <a href="/profile/upgrade" class="nosound">Become a Member</a>
                 <%} else { %>
                     <p>This User is not a member</p>
                 <% } %>
             <%} %>
             <% if (locals.currentUser.isadmin || locals.fromProfile) { %>
                 <div class="accountOptions">
-                    <a href="/profile/deleteUser/<%= locals.user.user_id %>,<%= locals.fromUser %>">Delete Account</a>
+                    <a href="/profile/deleteUser/<%= locals.user.user_id %>,<%= locals.fromUser %>" class="nosound">Delete Account</a>
                 <% if (locals.fromProfile) { %>
-                    <a href="/profile/editUser">Edit Account</a>
+                    <a href="/profile/editUser" class="nosound">Edit Account</a>
                 <% } %>
                 </div>
             <% } %>
