@@ -235,7 +235,7 @@ app.get("/populate", async (req,res)=>{
 
 `;
 const client = new Client({
-        connectionString : `postgresql://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:5432/${process.env.DATABASE}`,
+        connectionString : process.env.DATABASEURL,
     });
     await client.connect();
     await client.query(SQL);
