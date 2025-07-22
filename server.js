@@ -234,12 +234,8 @@ app.get("/populate", async (req,res)=>{
      REFERENCES messages(message_id) ON DELETE CASCADE;
 
 `;
-const client = new Client({
-        connectionString : `postgresql://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:5432/${process.env.DATABASE}`,
-    });
-    await client.connect();
-    await client.query(SQL);
-    await client.end();
+
+    await Pool.query(SQL);
     console.log('done');
     res.send('<p>Database Populated</p>');
 })
