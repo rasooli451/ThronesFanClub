@@ -244,6 +244,16 @@ const client = new Client({
 })
 
 
+app.use((req, res, next)=>{
+    res.status(404).render("errors", {errors : [{msg : "Sorry, the page you were looking for cannot be found."}]})
+})
+
+
+app.use((err, req, res, next) =>{
+    res.status(500).render("errors", {errors : [{msg : err.message}]})
+})
+
+
 app.listen(PORT, ()=>{
     console.log(`Server running at Port ${PORT}`);
 })
