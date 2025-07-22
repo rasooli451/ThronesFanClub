@@ -7,7 +7,7 @@ const {body, validationResult} = require("express-validator");
 
 
 const validateComment = [
-    body("comment").trim().isLength({min : 1, max : 500}).withMessage("Comments should be between 1 and 500 characters")
+    body("comment").trim().isLength({min : 1, max : 1000}).withMessage("Comments should be between 1 and 1000 characters")
 ];
 
 
