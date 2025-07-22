@@ -241,6 +241,7 @@ const client = new Client({
     await client.query(SQL);
     await client.end();
     console.log('done');
+    res.send('<p>Database Populated</p>');
 })
 
 
