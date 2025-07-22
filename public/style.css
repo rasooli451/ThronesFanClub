@@ -291,6 +291,10 @@ header .userInfo h1{
     margin: 0.5em auto;
 }
 
+
+.homepage .posts{
+    min-height: 90vh;
+}
 .posts h1{
     text-align: center;
     color: #fff;
