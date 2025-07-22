@@ -1,17 +1,19 @@
 
 
-const clickSound = new Audio('/sounds/sword-hit-7160.mp3');
+const clickSound = new Audio('/sounds/swordHit.mp3');
 const buttonSound = new Audio('/sounds/slash1-94367.mp3');
 
 
 document.addEventListener("click", ()=>{
-    clickSound.play();
+  const soundClone = clickSound.cloneNode();
+    soundClone.play();
 })
 
 
 document.querySelectorAll('button,input').forEach(element => {
     element.addEventListener('click', (e) => {
-      buttonSound.play();
+      const soundClone = buttonSound.cloneNode();
+      soundClone.play();
       e.stopPropagation();
     });
   });
