@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>users</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%- include("Partials/header") %>
+    <main class="appview">
+        <div class="users">
+            <% locals.users.forEach((user)=>{ %>
+                <div class="user">
+                    <% if (!user.isadmin) { %>
+                        <p class="posterName"><a href="/profile/user/<%= user.user_id %>" class="nosound"><%= user.username %></a></p>
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+</body>
+</html>

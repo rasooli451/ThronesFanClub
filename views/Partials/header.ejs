@@ -16,5 +16,8 @@
         <li><a href="/homepage/post" class="nosound">New Post<span></span></a></li>
         <li><a href="/profile/upgrade" class="nosound">Upgrade<span></span></a></li>
         <li><a href="/logout" class="nosound">Log Out<span></span></a></li>
+        <% if (locals.currentUser.isadmin) { %>
+            <li><a href="/users">Users</a></li>
+        <% } %>
     </ul>
 </header>
