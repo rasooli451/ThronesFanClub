@@ -709,7 +709,13 @@ footer a{
     color: black;
 }
 
+.users{
+    width: min(500, 95vw);
+}
 
+.user{
+    width: 100%;
+}
 
 
 @media (max-width : 360px) {
