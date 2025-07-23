@@ -17,7 +17,7 @@ const asyncHandler = require("express-async-handler");
 const pgSession = require("connect-pg-simple")(session);
 const HomePageRouter = require("./routes/HomePageRouter");
 const ProfileRouter = require("./routes/ProfileRouter");
-const {likePost,dislikePost} = require("./database/queries");
+const {likePost,dislikePost,getAllUsers} = require("./database/queries");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 const {Client} = require("pg");
@@ -154,6 +154,16 @@ app.get("/notamember", (req,res)=>{
 })
 
 
+app.get("/users", async (req,res)=>{
+  if (req.user == undefined){
+    return res.render("errors", {errors : [{msg : "You are not logged in, please Log In first."}]})
+  }
+  if (!req.user.isadmin){
+    return res.status(500).render("errors", {errors : [{msg : "Not allowed, You are not an admin"}]});
+  }
+  const users = await getAllUsers();
+  res.render("users", {users})
+})
 
 app.post("/api/like", async (req, res)=>{
   const {messageId, isLike} = req.body;
