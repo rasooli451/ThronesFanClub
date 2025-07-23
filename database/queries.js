@@ -180,4 +180,9 @@ const doesUserOwnComment = asyncHandler(async function(comment_id, owner_id){
     }
 })
 
-module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership, userExistsById, doesUserOwnPost, doesUserOwnComment};
+const getAllUsers = asyncHandler(async function(){
+    const {rows} = await Pool.query("SELECT * FROM users");
+    return rows;
+})
+
+module.exports = {getAllPosts, getAllLikesByUser,createNewPost,likePost,dislikePost, getPostsByUser,getPostById, editPost,deletePost,deleteUser, editUser,getCommentsForPost, AddCommentToPost, getCommentById, editComment, deleteComment,getUser, getUserIdFromMessageId,updateMembership, userExistsById, doesUserOwnPost, doesUserOwnComment,getAllUsers};
